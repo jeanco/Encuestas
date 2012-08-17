@@ -215,9 +215,13 @@ def capturar_datos
     end
     
    else
-     
-     flash[:error]= "Llene todos los campos porfavor"
-     redirect_to contestar_encuesta_url @encuesta.id
+      flash[:error]= "Llene todos los campos porfavor"
+      if session[:last_request] == contestar_web_url(@encuesta.id)
+        session[:last_request] = nil
+        redirect_to contestar_web_url @encuesta.id
+      else
+        redirect_to contestar_encuesta_url @encuesta.id
+      end
    end
   
   end
