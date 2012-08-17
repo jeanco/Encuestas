@@ -19,7 +19,7 @@ before_filter :authenticate, :only => :destroy
     if @usuario_session.save
       redirect_back_or root_path
     else
-      @user.delete
+      @user.delete unless u.nil?
       render :action => :new
     end
   end
