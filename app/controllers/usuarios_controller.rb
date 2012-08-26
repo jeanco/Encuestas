@@ -28,15 +28,16 @@ class UsuariosController < ApplicationController
 
   def edit
     @usuario = Usuario.find(params[:id])
-    @usuario.roles = []
-     if params[:admin] == "1"
-      @usuario.add_role 'admin'
-    end
+   
     @usuario.save
   end
 
   def update
     @usuario = Usuario.find(params[:id])
+     @usuario.roles = []
+     if params[:admin] == "1"
+      @usuario.add_role 'admin'
+    end
     respond_to do |format|
       if @usuario.update_attributes(params[:usuario])
         format.html { redirect_to @usuario, :notice=> 'Usuario actualizado correctamente.' }
