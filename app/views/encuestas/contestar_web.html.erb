@@ -4,7 +4,7 @@
 
 <blockquote>
     <%= flash_messages %>
-    <br/><br/>
+
     <%= form_for(@encuesta, :url => capturar_url, :method => :post) do |f| %>
       <% if @encuesta.errors.any? %>
         <div id="error_explanation">
