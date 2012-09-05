@@ -7,6 +7,8 @@ class Encuesta < ActiveRecord::Base
   belongs_to :creador, :class_name => "Usuario"
   has_many :temas
   has_many :preguntas, :dependent => :destroy
+  has_many :respuestas, :order => "id"
+  has_many :encuestados, :through => :respuestas, :source => :encuestado, :uniq => true
   has_one :encabezado
   has_one :footer
 

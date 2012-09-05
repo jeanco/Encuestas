@@ -1,8 +1,16 @@
 Encuestas::Application.routes.draw do
+
+  #Rutas para encuestados
+
+  resources :encuestados
+  get "encuestados/:id/respuesta_encuesta/:encuesta_id" => "encuestados#respuesta_encuesta", :as => :respuesta_encuesta
+
   post "encuestas/new/set_po_id" => "encuestas#set_po_id", :as => :set_po_id
   post "encuestas/new/increment_po_id" => "encuestas#increment_po_id", :as => :increment_po_id
 
-   get "encuestas/prueba"
+  get "encuestas/:id/detalles/:reply_number" => "encuestas#detalles_respuesta", :as => :detalles_respuesta
+  get "encuestas/:id/detalles" => "encuestas#detalles", :as => :encuesta_detalles
+  get "encuestas/prueba"
   delete "logout" => "usuario_sessions#destroy", :as => :logout
   resource :usuario_session
   resources :usuarios

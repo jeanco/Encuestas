@@ -2,7 +2,7 @@
 require 'will_paginate/array'
 class EncuestasController < ApplicationController
   before_filter :resultados_publicos?, :only => :grafica_resultados
-  before_filter :authenticate, :except => [:contestar, :gracias, :capturar_datos, :grafica_resultados]
+  before_filter :authenticate, :except => [:contestar, :contestar_web, :gracias, :capturar_datos, :grafica_resultados]
   before_filter :encuesta_propia?, :only => [:show, :edit]
   before_filter :fecha_limite_contestacion, :requiere_login?, :only => :contestar
   
@@ -125,8 +125,12 @@ def contestar_web
 end
 
 def capturar_datos
-  @encuestado = encuestado_actual
   @encuesta = Encuesta.find params[:encuesta_id]
+  if @encuesta.login
+    @encuestado = encuestado_actual(current_usuario.login) #encuestado_actual
+  else
+    @encuestado = encuestado_actual
+  end
   if @encuestado.new_record?
     @encuestado.save
   end
@@ -231,6 +235,16 @@ def capturar_datos
     @preguntas = @encuesta.preguntas.where("pregunta_tipo_id != ?", 3).paginate(:page => params[:page], :per_page => 1)
   end
 
+  def detalles
+    @encuesta = Encuesta.find(params[:id])
+  end
+
+  def detalles_respuesta
+    @encuesta = Encuesta.find(params[:id])
+    @reply_number = params[:reply_number]
+    @tipo_pregunta_abierta = PreguntaTipo.find_by_nombre("Abierta")
+  end
+
   def prueba
     @encuesta = Encuesta.find(16)
     respond_to do |format|
@@ -273,7 +287,9 @@ def capturar_datos
      @encuesta_id = args[0].pregunta.encuesta.id
      respuesta.encuestado_id = @encuestado.id
      respuesta.pregunta_id = args[0].pregunta.id
+     respuesta.encuesta_id = args[0].pregunta.encuesta.id
      respuesta.opcion_id = args[0].id
+     respuesta.reply_number = args[0].pregunta.encuesta.concurrencia.nil? ? 1 : args[0].pregunta.encuesta.concurrencia + 1
     if args.size > 1
       respuesta.texto = args[1][1]
     end

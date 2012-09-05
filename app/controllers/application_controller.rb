@@ -37,9 +37,15 @@ class ApplicationController < ActionController::Base
   #Los encuestados aun siendo anonimos son guardados para poder identificar si el usuario
   #ya ha contestado la encuesta o no
 
-  def encuestado_actual
+  def encuestado_actual(*args)
     session_id = request.session_options[:id]
-    encuestado = Encuestado.find_by_session_id(session_id) || Encuestado.new(:session_id => session_id)
+    if args.size > 0
+      encuestado = Encuestado.find_by_login(args[0])
+      encuestado = Encuestado.new(:session_id => session_id) if encuestado.nil?
+    else     
+      encuestado = Encuestado.find_by_session_id(session_id) || Encuestado.new(:session_id => session_id)
+    end
+    encuestado
   end
 
   def encuestado_contesto_encuesta?(encuestado,encuesta)

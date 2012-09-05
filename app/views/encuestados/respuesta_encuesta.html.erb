@@ -1,0 +1,30 @@
+
+<% @encuestado.respuestas.where("encuesta_id = ?", @encuesta.id).group("reply_number").order("id").each_with_index do |respuesta_iteracion, i| %>
+<div>
+  
+  <ul>
+    <% @encuesta.preguntas.each do |pregunta| %>
+      <li>
+        <%= pregunta.texto %>
+          <ol>
+            <% respuestas = @respuestas.where("pregunta_id = ? AND reply_number = ?", pregunta.id, respuesta_iteracion.reply_number).order("id") %>
+            
+            <% respuestas.each do |respuesta| %>
+                <li>
+                  <% unless respuesta.pregunta.pregunta_tipo_id == @tipo_pregunta_abierta.id  %>
+                    <% opcion = Opcion.find respuesta.opcion_id %>
+                    <%= opcion.contenido %>
+                  <% else %>
+                    <%= respuesta.texto %>
+                  <% end %>
+                </li>
+            <% end %>
+          </ol>
+      </li>
+    <% end %>
+  </ul>
+
+  </div>
+
+<% end %>
+

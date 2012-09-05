@@ -1,0 +1,18 @@
+<% @encuesta.preguntas.each do |pregunta_it| %>
+  <h4>
+    <%= pregunta_it.texto %>
+    <% respuestas = Respuesta.find_all_by_pregunta_id_and_reply_number pregunta_it.id, @reply_number %>
+  </h4>
+  <ol>
+  <% respuestas.each do |respuesta| %>
+    <li>
+      <% unless respuesta.pregunta.pregunta_tipo_id == @tipo_pregunta_abierta.id  %>
+        <% opcion = Opcion.find respuesta.opcion_id %>
+        <%= opcion.contenido %>
+      <% else %>
+        <%= respuesta.texto %>
+      <% end %>
+    </li>
+  <% end %>
+  </ol>
+<% end %>

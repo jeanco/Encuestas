@@ -12,6 +12,7 @@ before_filter :authenticate, :only => :destroy
       @user = Usuario.create(:login => params[:usuario_session][:login], :email => params[:usuario_session][:login] + "@uach.mx", :password => "123pum")
       @user.add_role "encuestado"
       @user.save
+      @encuestado= Encuestado.create(:login => @user.login, :email => @user.email, :session_id => request.session_options[:id])
     end
 
     @usuario_session = UsuarioSession.new(params[:usuario_session])

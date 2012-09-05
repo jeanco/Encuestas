@@ -1,0 +1,12 @@
+<h2>Por Encuestado</h2>
+<% @encuesta.encuestados.each do |encuestado| %>
+  <div>
+    <%= link_to encuestado.created_at.to_date, respuesta_encuesta_url(encuestado.id, @encuesta.id) %>
+  </div>
+<% end %>
+<h2>Por Respuestas</h2>
+<% @encuesta.respuestas.where("encuesta_id = ?", @encuesta.id).group("reply_number").order("id").each_with_index do |respuesta, i| %>
+<div>
+  <%= link_to respuesta.created_at.to_date, detalles_respuesta_url(@encuesta.id, respuesta.reply_number) %>
+</div>
+<% end %>

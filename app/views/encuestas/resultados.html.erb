@@ -5,6 +5,7 @@
     <tr>
       <th>Nombre de la encuesta</th>
       <th>No. respuestas</th>
+      <th>Detalles encuesta</th>
       <th><%= image_tag "grafica.png", :style => "  margin-left: 29px;" %></th>
     </tr>
   </thead>
@@ -15,7 +16,8 @@
     <tr>
       <td style="width: 600px;"> <%= encuesta.nombre %></td>
       <td style="text-align: center;"> <%= encuesta.concurrencia %></td>
-      <td> <%= link_to "Ver resultados", grafica_resultados_url(encuesta)%></td>
+      <td style="text-align: center;"> <%= link_to "Ver detalles", encuesta_detalles_url(encuesta.id) %></td>
+      <td> <%= link_to "Ver gráfica", grafica_resultados_url(encuesta)%></td>
     </tr>
   
 <% end %>

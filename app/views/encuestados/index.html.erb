@@ -1,0 +1,7 @@
+<ul>
+  <% @encuestados.each do |encuestado| %>
+    <li>
+      <div><%= link_to encuestado.login, encuestado_url(encuestado.id) %></div>
+    </li>
+  <% end %>
+</ul>

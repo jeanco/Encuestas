@@ -6,6 +6,8 @@ class Pregunta < ActiveRecord::Base
   belongs_to :tema
 
   has_many :opciones, :dependent => :destroy
+  has_many :respuestas
+
   accepts_nested_attributes_for :opciones,  :allow_destroy => true
 
   validates :texto, :presence => true

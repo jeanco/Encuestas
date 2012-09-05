@@ -1,0 +1,7 @@
+<ul>
+  <% @encuestado.encuestas_contestadas.uniq.each do |encuesta| %>
+    <li>
+      <%= link_to encuesta.nombre, respuesta_encuesta_url(@encuestado.id, encuesta.id)  %>
+    </li>
+  <% end %>
+</ul>

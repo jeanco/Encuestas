@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120815214620) do
+ActiveRecord::Schema.define(:version => 20120821143052) do
 
   create_table "encabezados", :force => true do |t|
     t.integer  "encuesta_id"
@@ -45,6 +45,9 @@ ActiveRecord::Schema.define(:version => 20120815214620) do
     t.string   "session_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "login"
+    t.string   "email"
+    t.string   "nombre"
   end
 
   create_table "footers", :force => true do |t|
@@ -98,6 +101,8 @@ ActiveRecord::Schema.define(:version => 20120815214620) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "texto"
+    t.integer  "encuesta_id"
+    t.integer  "reply_number"
   end
 
   create_table "sessions", :force => true do |t|
