@@ -213,7 +213,7 @@ def capturar_datos
     @encuesta.save
     if session[:last_request] == contestar_web_url(@encuesta.id)
       session[:last_request] = nil
-      redirect_to "http://uach.mx/portal/2012/09/04/datos_guardados/"
+      redirect_to encuesta_gracias_web_url
     else
       redirect_to encuesta_gracias_url
     end
