@@ -97,7 +97,7 @@ end
 
 def destroy
     @encuesta = Encuesta.find(params[:id])
-    unless encuesta_propia?(@encuesta) or current_usuario.is_admin?
+    if encuesta_propia?(@encuesta) or current_usuario.is_admin?
       @encuesta.destroy
       respond_to do |format|
           format.html { redirect_to resultados_url }

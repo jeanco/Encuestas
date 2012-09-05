@@ -9,6 +9,7 @@
   </thead>
   <tbody>
 <% @usuarios.each do |usuario| %>
+	<% unless usuario.is_encuestado? %>
     <tr>
       <td><%= usuario.login %></td> 
   <td><%= usuario.apellido_paterno %></td>
@@ -20,6 +21,7 @@
   <td><%= link_to 'Eliminar', usuario, :confirm => "Estas seguro?", :method => :delete %></td>
   <% end %>
 </tr>
+<% end %>
 <% end %>
     </tbody>
 </table>
