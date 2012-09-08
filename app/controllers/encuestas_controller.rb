@@ -2,7 +2,7 @@
 require 'will_paginate/array'
 class EncuestasController < ApplicationController
   before_filter :resultados_publicos?, :only => :grafica_resultados
-  before_filter :authenticate, :except => [:contestar, :contestar_web, :gracias, :capturar_datos, :grafica_resultados]
+  before_filter :authenticate, :except => [:contestar, :contestar_web, :gracias, :gracias_web, :capturar_datos, :grafica_resultados]
   before_filter :encuesta_propia?, :only => [:show, :edit]
   before_filter :fecha_limite_contestacion, :requiere_login?, :only => :contestar
   
@@ -213,7 +213,7 @@ def capturar_datos
     @encuesta.save
     if session[:last_request] == contestar_web_url(@encuesta.id)
       session[:last_request] = nil
-      redirect_to encuesta_gracias_web_url
+      redirect_to encuesta_gracias_web_url  
     else
       redirect_to encuesta_gracias_url
     end

@@ -16,4 +16,14 @@ module EncuestasHelper
  
   end
 
+  def determinate_h_number(pregunta)
+    length = pregunta.texto.length
+     if length > 0 and length < 41
+        h_number = 1
+     else
+        h_number = 2
+     end
+     h_number
+  end
+
 end
