@@ -15,7 +15,7 @@ ActiveRecord::Schema.define(:version => 20120821143052) do
 
   create_table "encabezados", :force => true do |t|
     t.integer  "encuesta_id"
-    t.text     "texto",       :limit => 255
+    t.text     "texto"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -134,7 +134,7 @@ ActiveRecord::Schema.define(:version => 20120821143052) do
     t.string   "login",               :limit => 100
     t.string   "apellido_paterno",    :limit => 100
     t.string   "apellido_materno",    :limit => 100
-    t.date     "fecha_alta",                         :default => '2012-02-16'
+    t.date     "fecha_alta",                         :default => '2012-09-09'
     t.string   "email",               :limit => 100
     t.string   "persistence_token",                                            :null => false
     t.string   "crypted_password",                                             :null => false

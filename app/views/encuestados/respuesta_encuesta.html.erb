@@ -1,5 +1,5 @@
 
-<% @encuestado.respuestas.where("encuesta_id = ?", @encuesta.id).group("reply_number").order("id").each_with_index do |respuesta_iteracion, i| %>
+<% @encuestado.respuestas.select("id, reply_number, created_at").where("encuesta_id = ?", @encuesta.id).group("id, reply_number").order("id").each_with_index do |respuesta_iteracion, i| %>
 <div>
   
   <ul>

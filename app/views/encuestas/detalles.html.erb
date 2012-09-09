@@ -5,7 +5,7 @@
   </div>
 <% end %>
 <h2>Por Respuestas</h2>
-<% @encuesta.respuestas.where("encuesta_id = ?", @encuesta.id).group("reply_number").order("id").each_with_index do |respuesta, i| %>
+<% @encuesta.respuestas.select("id, reply_number, created_at").where("encuesta_id = ?", @encuesta.id).group("id, reply_number").order("id").each_with_index do |respuesta, i| %>
 <div>
   <%= link_to respuesta.created_at.to_date, detalles_respuesta_url(@encuesta.id, respuesta.reply_number) %>
 </div>
