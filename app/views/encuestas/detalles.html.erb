@@ -9,8 +9,10 @@
   </div>
 <% end %>
 <h2>Por Respuestas</h2>
-<% @encuesta.respuestas.select("id, reply_number, created_at").where("encuesta_id = ?", @encuesta.id).group("id, reply_number").order("id").each_with_index do |respuesta, i| %>
+<% Respuesta.select("reply_number,encuesta_id").group("reply_number,encuesta_id").having("encuesta_id = ?", @encuesta.id).each_with_index do |respuesta, i| %>
 <div>
-  <%= link_to respuesta.created_at.to_date, detalles_respuesta_url(@encuesta.id, respuesta.reply_number) %>
+	
+  <% obj_res = Respuesta.find_by_reply_number_and_encuesta_id(respuesta.reply_number, respuesta.encuesta_id)%>
+  <%= link_to obj_res.created_at.to_date, detalles_respuesta_url(@encuesta.id, respuesta.reply_number) %>
 </div>
 <% end %>
