@@ -41,7 +41,7 @@ class ApplicationController < ActionController::Base
     session_id = request.session_options[:id]
     if args.size > 0
       encuestado = Encuestado.find_by_login(args[0])
-      encuestado = Encuestado.new(:session_id => session_id) if encuestado.nil?
+      encuestado = Encuestado.new(:session_id => session_id, :login => args[0], :email => args[0] + "@uach.mx") if encuestado.nil?
     else     
       encuestado = Encuestado.find_by_session_id(session_id) || Encuestado.new(:session_id => session_id)
     end

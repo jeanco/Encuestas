@@ -1,7 +1,11 @@
 <h2>Por Encuestado</h2>
 <% @encuesta.encuestados.each do |encuestado| %>
   <div>
-    <%= link_to encuestado.created_at.to_date, respuesta_encuesta_url(encuestado.id, @encuesta.id) %>
+  	<% unless encuestado.login.nil? %>
+  		<%= link_to encuestado.login, respuesta_encuesta_url(encuestado.id, @encuesta.id) %>
+    <% else %>
+    	<%= link_to encuestado.created_at.to_date, respuesta_encuesta_url(encuestado.id, @encuesta.id) %>
+  	<% end %>
   </div>
 <% end %>
 <h2>Por Respuestas</h2>
